@@ -56,7 +56,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
 client.login(process.env.BOT_TOKEN);
 
 const express = require("express");
+const path = require("path");
 const app = express();
 
-app.get("/", (_, res) => res.sendFile("./index.html"));
+app.get("/", (_, res) => res.sendFile(path.join(__dirname, "index.html")));
 app.listen(process.env.PORT);
