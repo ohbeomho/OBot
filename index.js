@@ -54,3 +54,8 @@ client.on(Events.InteractionCreate, async (interaction) => {
 })();
 
 client.login(process.env.BOT_TOKEN);
+
+const express = require("express");
+const app = express();
+
+app.get("/", (_, res) => res.sendFile("./index.html"));
