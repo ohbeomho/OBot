@@ -1,9 +1,13 @@
 require("dotenv").config();
 
+const BOT_TOKEN = String(process.env.BOT_TOKEN);
+const CLIENT_ID = String(process.env.CLIENT_ID);
+const PORT = Number(process.env.PORT);
+
 const { Client, Collection, GatewayIntentBits, Events, REST, Routes } = require("discord.js");
 const commands = require("./commands");
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-const rest = new REST().setToken(process.env.BOT_TOKEN);
+const rest = new REST().setToken(BOT_TOKEN);
 
 client.commands = new Collection();
 commands.forEach((command) => client.commands.set(command.data.name, command));
@@ -43,7 +47,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	try {
 		console.log("슬래시 명령어 등록 시작.");
 
-		await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+		await rest.put(Routes.applicationCommands(CLIENT_ID), {
 			body: commands.map((command) => command.data.toJSON())
 		});
 
@@ -53,11 +57,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	}
 })();
 
-client.login(process.env.BOT_TOKEN);
+client.login(BOT_TOKEN);
 
 const express = require("express");
 const path = require("path");
 const app = express();
 
 app.get("/", (_, res) => res.sendFile(path.join(__dirname, "index.html")));
-app.listen(process.env.PORT);
+app.listen(PORT);
