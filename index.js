@@ -59,3 +59,4 @@ const express = require("express");
 const app = express();
 
 app.get("/", (_, res) => res.sendFile("./index.html"));
+app.listen(process.env.PORT);
