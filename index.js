@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const BOT_TOKEN = String(process.env.BOT_TOKEN);
 const CLIENT_ID = String(process.env.CLIENT_ID);
-const PORT = Number(process.env.PORT);
 
 const { Client, Collection, GatewayIntentBits, Events, REST, Routes } = require("discord.js");
 const commands = require("./commands");
