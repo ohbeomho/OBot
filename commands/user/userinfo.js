@@ -13,16 +13,16 @@ module.exports = {
 	async execute(interaction) {
 		const member = interaction.options.getMember("user") || interaction.member;
 
-		const embed = new EmbedBuilder();
-		embed.setTitle(member.user.tag);
-		embed.setDescription(`디스코드 계정 생성: \`${member.user.createdAt.toLocaleString(
-			"ko-KR"
-		)}\`
+		const embed = new EmbedBuilder()
+			.setTitle(member.user.tag)
+			.setDescription(
+				`디스코드 계정 생성: \`${member.user.createdAt.toLocaleString("ko-KR")}\`
 서버 가입: \`${member.joinedAt.toLocaleString("ko-KR")}\`
 
 **역할 목록**
-${member.roles.cache.map((_, roleId) => `<@&${roleId}>`).join("\n")}`);
-		embed.setThumbnail(member.user.avatarURL());
+${member.roles.cache.map((_, roleId) => `<@&${roleId}>`).join("\n")}`
+			)
+			.setThumbnail(member.user.avatarURL());
 
 		await interaction.reply({ embeds: [embed] });
 	}
