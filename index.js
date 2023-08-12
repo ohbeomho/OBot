@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const BOT_TOKEN = String(process.env.BOT_TOKEN);
 const CLIENT_ID = String(process.env.CLIENT_ID);
+const GUILD_ID = String(process.env.GUILD_ID);
+const NODE_ENV = String(process.env.NODE_ENV);
 
 const { Client, Collection, GatewayIntentBits, Events, REST, Routes } = require("discord.js");
 const commands = require("./commands");
@@ -13,7 +15,7 @@ commands.forEach((command) => client.commands.set(command.data.name, command));
 
 client.once(Events.ClientReady, (c) => console.log(`${c.user.tag}(으)로 로그인됨.`));
 client.on(Events.InteractionCreate, async (interaction) => {
-	if (!interaction.isChatInputCommand()) {
+	if (!interaction.isChatInputCommand() || !interaction.inGuild()) {
 		return;
 	}
 
@@ -46,9 +48,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	try {
 		console.log("슬래시 명령어 등록 시작.");
 
-		await rest.put(Routes.applicationCommands(CLIENT_ID), {
-			body: commands.map((command) => command.data.toJSON())
-		});
+		await rest.put(
+			NODE_ENV === "prod"
+				? Routes.applicationCommands(CLIENT_ID)
+				: Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
+			{
+				body: commands.map((command) => command.data.toJSON())
+			}
+		);
 
 		console.log("슬래시 명령어 등록 완료.");
 	} catch (err) {
