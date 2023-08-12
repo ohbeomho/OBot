@@ -1,12 +1,13 @@
 const { SlashCommandBuilder } = require("discord.js");
-const create = require("./create.js");
-const del = require("./delete.js");
-const add = require("./add.js");
-const remove = require("./remove.js");
-const list = require("./list.js");
-const color = require("./color.js");
-const subcommands = [create, del, add, remove, list, color];
+const fs = require("fs");
+const path = require("path");
+
+const subcommands = [];
 const functions = new Map();
+
+// 하위 명령어 불러오기
+const subcommandFiles = fs.readdirSync(__dirname).filter((file) => file !== "role.js");
+subcommandFiles.forEach((file) => subcommands.push(require(path.join(__dirname, file))));
 
 const exportData = {
 	data: new SlashCommandBuilder()
