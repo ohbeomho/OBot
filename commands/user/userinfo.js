@@ -7,7 +7,7 @@ module.exports = {
 		.addUserOption(
 			new SlashCommandUserOption()
 				.setName("user")
-				.setDescription("(선택) 정보를 가져올 대상")
+				.setDescription("(선택) 정보를 가져올 대상 사용자")
 				.setRequired(false)
 		),
 	async execute(interaction) {
