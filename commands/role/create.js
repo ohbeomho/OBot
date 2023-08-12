@@ -34,13 +34,14 @@ module.exports = {
 		const mentionable = interaction.options.getBoolean("mentionable") || true;
 
 		if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
-			await interaction.reply({
-				content: `<@${interaction.member.id}> 님에게 역할을 관리할 권한이 없습니다.`,
-				ephemeral: true
-			});
+			await interaction.reply(
+				ephemeralMessage(
+					`<@${interaction.member.id}> 님에게 역할을 관리할 권한이 없습니다.`
+				)
+			);
 			return;
 		} else if (!roleName) {
-			await interaction.reply({ content: "역할의 이름을 입력해 주세요", ephemeral: true });
+			await interaction.reply(ephemeralMessage("역할의 이름을 입력해 주세요"));
 			return;
 		}
 

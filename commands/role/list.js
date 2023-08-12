@@ -9,7 +9,10 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setTitle(`${interaction.guild.name} - 역할 목록`)
 			.setDescription(
-				interaction.guild.roles.cache.map((_, roleId) => `<@&${roleId}>`).join("\n")
+				interaction.guild.roles.cache
+					.filter((_, roleId) => roleId !== interaction.guild.roles.everyone.id)
+					.map((_, roleId) => `<@&${roleId}>`)
+					.join("\n")
 			);
 		await interaction.reply({ embeds: [embed] });
 	}

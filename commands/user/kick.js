@@ -4,6 +4,7 @@ const {
 	SlashCommandStringOption,
 	PermissionsBitField
 } = require("discord.js");
+const { ephemeralMessage } = require("../../utils");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -24,8 +25,6 @@ module.exports = {
 	async execute(interaction) {
 		const member = interaction.options.getMember("user");
 		const reason = interaction.options.getString("reason") || undefined;
-
-		const ephemeralMessage = (content) => ({ content, ephemeral: true });
 
 		if (!interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
 			await interaction.reply(

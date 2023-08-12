@@ -4,6 +4,7 @@ const {
 	SlashCommandUserOption,
 	PermissionsBitField
 } = require("discord.js");
+const { ephemeralMessage } = require("../../utils");
 
 module.exports = {
 	data: new SlashCommandSubcommandBuilder()
@@ -28,11 +29,13 @@ module.exports = {
 		if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
 			await interaction.reply(
 				ephemeralMessage(
-					`**${interaction.member.user.tag}**님에게 역할을 관리할 권한이 없습니다.`
+					`<@${interaction.member.id}> 님에게 역할을 관리할 권한이 없습니다.`
 				)
 			);
 		} else if (!member.roles.cache.toJSON().includes(role)) {
-			await interaction.reply(`<@${member.id}> 님에게 <@&${role.id}> 역할이 없습니다.`);
+			await interaction.reply(
+				ephemeralMessage(`<@${member.id}> 님에게 <@&${role.id}> 역할이 없습니다.`)
+			);
 			return;
 		}
 

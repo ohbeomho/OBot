@@ -5,6 +5,7 @@ const {
 	Colors,
 	PermissionsBitField
 } = require("discord.js");
+const { ephemeralMessage } = require("../../utils");
 
 module.exports = {
 	data: new SlashCommandSubcommandBuilder()
@@ -27,10 +28,11 @@ module.exports = {
 		let color = interaction.options.getString("color");
 
 		if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
-			await interaction.reply({
-				content: `<@${interaction.member.id}> 님에게 역할을 관리할 권한이 없습니다.`,
-				ephemeral: true
-			});
+			await interaction.reply(
+				ephemeralMessage(
+					`<@${interaction.member.id}> 님에게 역할을 관리할 권한이 없습니다.`
+				)
+			);
 			return;
 		}
 
