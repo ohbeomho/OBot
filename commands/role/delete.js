@@ -19,7 +19,7 @@ module.exports = {
 
 		if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageRoles)) {
 			await interaction.reply({
-				content: `**${interaction.member.user.tag}**님에게 역할을 관리할 권한이 없습니다.`,
+				content: `<@${interaction.member.id}> 님에게 역할을 관리할 권한이 없습니다.`,
 				ephemeral: true
 			});
 			return;

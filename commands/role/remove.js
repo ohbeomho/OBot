@@ -32,13 +32,11 @@ module.exports = {
 				)
 			);
 		} else if (!member.roles.cache.toJSON().includes(role)) {
-			await interaction.reply(`**${member.user.tag}**님에게 <@&${role.id}> 역할이 없습니다.`);
+			await interaction.reply(`<@${member.id}> 님에게 <@&${role.id}> 역할이 없습니다.`);
 			return;
 		}
 
 		await member.roles.remove(role);
-		await interaction.reply(
-			`**${member.user.tag}**님에게서 <@&${role.id}> 역할을 삭제하였습니다.`
-		);
+		await interaction.reply(`<@${member.id}> 님에게서 <@&${role.id}> 역할을 삭제하였습니다.`);
 	}
 };

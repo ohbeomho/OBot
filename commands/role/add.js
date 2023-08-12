@@ -35,9 +35,7 @@ module.exports = {
 			);
 		} else if (member.roles.cache.toJSON().includes(role)) {
 			await interaction.reply(
-				ephemeralMessage(
-					`**${member.user.tag}**님에게 이미 <@&${role.id}> 역할이 있습니다.`
-				)
+				ephemeralMessage(`<@${member.id}> 님에게 이미 <@&${role.id}> 역할이 있습니다.`)
 			);
 		}
 
@@ -46,8 +44,6 @@ module.exports = {
 		}
 
 		await member.roles.add(role);
-		await interaction.reply(
-			`**${member.user.tag}**님에게 <@&${role.id}> 역할을 추가하였습니다.`
-		);
+		await interaction.reply(`<@${member.id}> 님에게 <@&${role.id}> 역할을 추가하였습니다.`);
 	}
 };

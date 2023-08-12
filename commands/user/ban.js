@@ -30,7 +30,7 @@ module.exports = {
 		if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
 			await interaction.reply(
 				ephemeralMessage(
-					`**${interaction.member.user.tag}**님에게 사용자를 차단시킬 권한이 없습니다.`
+					`<@${interaction.member.id}> 님에게 사용자를 차단시킬 권한이 없습니다.`
 				)
 			);
 		} else if (member.user.id === interaction.user.id) {
@@ -38,13 +38,11 @@ module.exports = {
 		} else if (interaction.member.role.highest.comparePositionTo(member.role.highest) < 0) {
 			await interaction.reply(
 				ephemeralMessage(
-					`**${member.user.tag}**님이 더 높은 권한을 가지고 있어 차단시킬 수 없습니다.`
+					`<@${member.id}> 님이 더 높은 권한을 가지고 있어 차단시킬 수 없습니다.`
 				)
 			);
 		} else if (!member.bannable) {
-			await interaction.reply(
-				ephemeralMessage(`**${member.user.tag}**님을 차단시킬 수 없습니다.`)
-			);
+			await interaction.reply(ephemeralMessage(`<@${member.id}> 님을 차단시킬 수 없습니다.`));
 		}
 
 		if (interaction.replied) {
@@ -52,6 +50,6 @@ module.exports = {
 		}
 
 		await member.ban(reason);
-		await interaction.reply(`**${member.user.tag}**님을 차단시켰습니다.`);
+		await interaction.reply(`<@${member.id}> 님을 차단시켰습니다.`);
 	}
 };
