@@ -20,7 +20,10 @@ module.exports = {
 서버 가입: \`${member.joinedAt.toLocaleString("ko-KR")}\`
 
 **역할 목록**
-${member.roles.cache.map((_, roleId) => `<@&${roleId}>`).join("\n")}`
+${member.roles.cache
+	.filter((_, roleId) => roleId !== interaction.guild.roles.everyone.id)
+	.map((_, roleId) => `<@&${roleId}>`)
+	.join("\n")}`
 			)
 			.setThumbnail(member.user.avatarURL());
 
