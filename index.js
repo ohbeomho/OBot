@@ -1,9 +1,10 @@
 require("dotenv").config();
 
-const BOT_TOKEN = String(process.env.BOT_TOKEN);
-const CLIENT_ID = String(process.env.CLIENT_ID);
-const GUILD_ID = String(process.env.GUILD_ID);
 const NODE_ENV = String(process.env.NODE_ENV);
+const isDev = NODE_ENV === "dev";
+const BOT_TOKEN = String(isDev ? process.env.TEST_BOT_TOKEN : process.env.BOT_TOKEN);
+const CLIENT_ID = String(isDev ? process.env.TEST_CLIENT_ID : process.env.CLIENT_ID);
+const GUILD_ID = String(process.env.GUILD_ID);
 
 const { Client, Collection, GatewayIntentBits, Events, REST, Routes } = require("discord.js");
 const commands = require("./commands");
@@ -49,9 +50,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
 		console.log("슬래시 명령어 등록 시작.");
 
 		await rest.put(
-			NODE_ENV === "prod"
-				? Routes.applicationCommands(CLIENT_ID)
-				: Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
+			isDev
+				? Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID)
+				: Routes.applicationCommands(CLIENT_ID),
 			{
 				body: commands.map((command) => command.data.toJSON())
 			}
