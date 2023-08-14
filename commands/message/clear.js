@@ -18,7 +18,7 @@ module.exports = {
 		const count = interaction.options.getInteger("count") || 10;
 		const deleteCount = (await interaction.channel.bulkDelete(count)).size;
 
-		if (!interaction.member.permission.has(PermissionsBitField.Flags.ManageMessages)) {
+		if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
 			await interaction.reply(
 				ephemeralMessage(
 					`<@${interaction.member.id}> 님에게 메시지를 관리할 권한이 없습니다.`
