@@ -34,7 +34,7 @@ module.exports = {
 			);
 		} else if (member.user.id === interaction.user.id) {
 			await interaction.reply(ephemeralMessage("자기 자신을 차단시킬 수 없습니다."));
-		} else if (interaction.member.role.highest.comparePositionTo(member.role.highest) < 0) {
+		} else if (interaction.member.roles.highest.comparePositionTo(member.roles.highest) < 0) {
 			await interaction.reply(
 				ephemeralMessage(
 					`<@${member.id}> 님이 더 높은 권한을 가지고 있어 차단시킬 수 없습니다.`
