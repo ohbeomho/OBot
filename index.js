@@ -4,7 +4,7 @@ const NODE_ENV = String(process.env.NODE_ENV);
 const isDev = NODE_ENV === "dev";
 const BOT_TOKEN = String(isDev ? process.env.TEST_BOT_TOKEN : process.env.BOT_TOKEN);
 const CLIENT_ID = String(isDev ? process.env.TEST_CLIENT_ID : process.env.CLIENT_ID);
-const GUILD_ID = String(process.env.GUILD_ID);
+const GUILD_ID = String(process.env.TEST_GUILD_ID);
 
 const { Client, Collection, GatewayIntentBits, Events, REST, Routes } = require("discord.js");
 const commands = require("./commands");
