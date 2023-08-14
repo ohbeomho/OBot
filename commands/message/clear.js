@@ -32,7 +32,7 @@ module.exports = {
 		);
 
 		if (deleteCount < count) {
-			await interaction.reply(
+			await interaction.followUp(
 				ephemeralMessage(
 					`나머지 \`${
 						count - deleteCount
