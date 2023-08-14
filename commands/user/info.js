@@ -1,20 +1,24 @@
-const { SlashCommandBuilder, EmbedBuilder, SlashCommandUserOption } = require("discord.js");
+const {
+	EmbedBuilder,
+	SlashCommandUserOption,
+	SlashCommandSubcommandBuilder
+} = require("discord.js");
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName("userinfo")
+	data: new SlashCommandSubcommandBuilder()
+		.setName("info")
 		.setDescription("사용자 정보 출력")
 		.addUserOption(
 			new SlashCommandUserOption()
 				.setName("user")
-				.setDescription("(선택) 정보를 가져올 대상 사용자. 기본값은 자기 자신")
-				.setRequired(false)
+				.setDescription("정보를 가져올 사용자")
+				.setRequired(true)
 		),
 	async execute(interaction) {
-		const member = interaction.options.getMember("user") || interaction.member;
+		const member = interaction.options.getMember("user");
 
 		const embed = new EmbedBuilder()
-			.setTitle(member.user.tag)
+			.setTitle(`${member.user.tag} 님의 정보`)
 			.setDescription(
 				`디스코드 계정 생성: \`${member.user.createdAt.toLocaleString("ko-KR")}\`
 서버 가입: \`${member.joinedAt.toLocaleString("ko-KR")}\`
