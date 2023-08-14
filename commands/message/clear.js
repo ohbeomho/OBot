@@ -16,7 +16,7 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const count = interaction.options.getInteger("count") || 10;
-		const deleteCount = (await interaction.channel.bulkDelete(count)).size;
+		const deleteCount = (await interaction.channel.bulkDelete(count, true)).size;
 
 		if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
 			await interaction.reply(
