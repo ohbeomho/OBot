@@ -33,6 +33,17 @@ module.exports = {
 					`<@${interaction.member.id}> 님에게 역할을 관리할 권한이 없습니다.`
 				)
 			);
+		} else if (interaction.member.roles.highest.comparePositionTo(role) < 0) {
+			await interaction.reply(
+				ephemeralMessage(
+					`<@${interaction.member.id}> 님이 가지고 있는 역할보다 역할 <@&${role.id}> 의 권한이 높아 수정할 수 없습니다.`
+				)
+			);
+		} else if (!role.editable) {
+			await interaction.reply(ephemeralMessage(`역할 <@&${role.id}> 를 수정할 수 없습니다.`));
+		}
+
+		if (interaction.replied) {
 			return;
 		}
 

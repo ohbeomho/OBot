@@ -32,6 +32,12 @@ module.exports = {
 				)
 			);
 			return;
+		} else if (!role.editable) {
+			await interaction.reply(ephemeralMessage(`역할 <@&${role.id}> 를 수정할 수 없습니다.`));
+		}
+
+		if (interaction.replied) {
+			return;
 		}
 
 		await role.delete();
