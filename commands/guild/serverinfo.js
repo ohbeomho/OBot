@@ -6,14 +6,13 @@ module.exports = {
 		.setDescription("서버의 정보를 출력합니다."),
 	async execute(interaction) {
 		const guild = interaction.guild;
+		const botCount = (await guild.members.fetch()).filter((member) => member.user.bot).size;
 		const embed = new EmbedBuilder()
 			.setTitle(guild.name)
 			.setDescription(
 				`서버 주인: <@${guild.ownerId}>
 서버 생성: \`${guild.createdAt.toLocaleString("ko-KR")}\`
-멤버 \`${guild.memberCount}\`명 (봇 \`${
-					guild.members.cache.toJSON().filter((member) => member.user.bot).length
-				}\`명)
+멤버 \`${guild.memberCount}\`명 (봇: \`${botCount}\`)
 채널 \`${
 					guild.channels.cache
 						.toJSON()

@@ -8,7 +8,13 @@ const GUILD_ID = String(process.env.TEST_GUILD_ID);
 
 const { Client, Collection, GatewayIntentBits, Events, REST, Routes } = require("discord.js");
 const commands = require("./commands");
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.MessageContent
+	]
+});
 const rest = new REST().setToken(BOT_TOKEN);
 
 client.commands = new Collection();
