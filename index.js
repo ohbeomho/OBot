@@ -34,7 +34,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	}
 
 	try {
-		await command.execute(interaction);
+		if (interaction.commandName === "help") {
+			await command.execute(interaction, commands);
+		} else {
+			await command.execute(interaction);
+		}
 	} catch (err) {
 		console.error(err);
 
